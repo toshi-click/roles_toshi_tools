@@ -1,0 +1,18 @@
+{% if ssh_mail_send is defined %}
+{% if ssh_mail_send == "true" %}
+SOURCE_IP=${SSH_CLIENT%% *}
+# リストと比較して信頼していないIPからならメール送付
+while read line
+do
+    if $(echo $SOURCE_IP | grep $line > /dev/null) ; then
+      exit 0
+    fi
+done < {{ ssh_mail_send_trust_list_file }}
+DATE=`date +"%Y/%m/%d %p %I:%M:%S"`
+ (
+echo "Subject: $(hostname) - ${USER} has logged in from ${SSH_CLIENT} at ${DATE}"
+echo "To: root"
+echo "${USER} has logged in from ${SSH_CLIENT} at ${DATE} to $(hostname)"
+) | /usr/sbin/sendmail root
+{% endif %}
+{% endif %}

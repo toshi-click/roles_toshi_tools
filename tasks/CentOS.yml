@@ -1,0 +1,14 @@
+---
+# JSON形式のデータを見やすく表示したり、データを抽出したりするコマンド。
+- name: jq install
+  package:
+    name: jq
+    state: present
+
+- name: sshrc
+  template:
+    src: "etc/ssh/sshrc"
+    dest: "/etc/ssh/sshrc"
+    owner: root
+    group: root
+    mode: 0755

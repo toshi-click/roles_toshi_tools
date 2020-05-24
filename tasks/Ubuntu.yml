@@ -1,0 +1,18 @@
+---
+# JSON形式のデータを見やすく表示したり、データを抽出したりするコマンド。
+- name: jq install
+  apt:
+    pkg: jq
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+# ssh ログインでメール送る設定
+- name: sshrc
+  template:
+    src: "etc/ssh/ubuntu_sshrc"
+    dest: "/etc/ssh/sshrc"
+    owner: root
+    group: root
+    mode: 0755
+  tags: notification
