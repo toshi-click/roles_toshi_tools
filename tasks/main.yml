@@ -1,7 +1,7 @@
 # スクリプト設置場所を作成
 - name: "create file {{ ssh_mail_send_trust_list_file }}"
   template:
-    src: "ip_trust_list.j2"
+    src: "ip_trust_list"
     dest: "{{ ssh_mail_send_trust_list_file }}"
     owner: root
     group: root
